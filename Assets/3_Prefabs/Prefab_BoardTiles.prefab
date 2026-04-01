@@ -9,8 +9,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1254560991085277396}
-  - component: {fileID: 8305416090962222921}
+  - component: {fileID: 3031086849933238388}
   - component: {fileID: 1254560991085277397}
+  - component: {fileID: 8305416090962222921}
   m_Layer: 5
   m_Name: Prefab_BoardTiles
   m_TagString: Untagged
@@ -47,18 +48,23 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!225 &8305416090962222921
-CanvasGroup:
+--- !u!114 &3031086849933238388
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1254560991085277395}
   m_Enabled: 1
-  m_Alpha: 1
-  m_Interactable: 1
-  m_BlocksRaycasts: 1
-  m_IgnoreParentGroups: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fd97ded5b3274b59928b12fb50c4158c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playCost: 1000
+  boardSize: {x: 0, y: 0}
+  canvasGroup: {fileID: 8305416090962222921}
+  winingTile: {fileID: 0}
+  tiles: []
 --- !u!114 &1254560991085277397
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -83,6 +89,18 @@ MonoBehaviour:
   m_Spacing: {x: 0, y: 0}
   m_Constraint: 0
   m_ConstraintCount: 2
+--- !u!225 &8305416090962222921
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1254560991085277395}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1001 &1254560991065217019
 PrefabInstance:
   m_ObjectHideFlags: 0

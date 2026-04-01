@@ -164,6 +164,7 @@ GameObject:
   - component: {fileID: 3854586966301794879}
   - component: {fileID: 956280976468628375}
   - component: {fileID: 7947675939775065079}
+  - component: {fileID: 141277653776801631}
   m_Layer: 5
   m_Name: Prefab_Tile
   m_TagString: Untagged
@@ -245,6 +246,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_ShowMaskGraphic: 1
+--- !u!114 &141277653776801631
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5641868285965039124}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a00c3fd598c2410fa19dcabe6260cd0c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fadeDuration: 0.15
+  visibleAlpha: 0.5
+  overlayImage: {fileID: 8959147377145099596}
 --- !u!1001 &991284949888707955
 PrefabInstance:
   m_ObjectHideFlags: 0
