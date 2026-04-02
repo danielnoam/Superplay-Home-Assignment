@@ -627,6 +627,10 @@ PrefabInstance:
       propertyPath: m_text
       value: X12
       objectReference: {fileID: 0}
+    - target: {fileID: 2065139005354989382, guid: 5df8e6f456707e74c898ddfc8ca61525, type: 3}
+      propertyPath: m_text
+      value: X1
+      objectReference: {fileID: 0}
     - target: {fileID: 2065139005549373757, guid: 5df8e6f456707e74c898ddfc8ca61525, type: 3}
       propertyPath: m_text
       value: 100k
@@ -662,10 +666,6 @@ PrefabInstance:
     - target: {fileID: 3031086849933238388, guid: 5df8e6f456707e74c898ddfc8ca61525, type: 3}
       propertyPath: boardSize.x
       value: -75
-      objectReference: {fileID: 0}
-    - target: {fileID: 3031086849933238388, guid: 5df8e6f456707e74c898ddfc8ca61525, type: 3}
-      propertyPath: randomTileCount
-      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 3031086849933238388, guid: 5df8e6f456707e74c898ddfc8ca61525, type: 3}
       propertyPath: tiles.Array.size

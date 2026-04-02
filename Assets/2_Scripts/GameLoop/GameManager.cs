@@ -1,6 +1,5 @@
 using System;
 using PrimeTween;
-using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using Sequence = PrimeTween.Sequence;
@@ -22,8 +21,7 @@ public class GameManager : MonoBehaviour
     [Header("References")]
     [SerializeField] private Button exitButton;
     [SerializeField] private RectTransform boardFrame;
-    [SerializeField] private Button playButton;
-    [SerializeField] private TextMeshProUGUI playCostText;
+    [SerializeField] private PlayButton playButton;
     [SerializeField] private WinScreen winScreen;
     [SerializeField] private PrizeBoard[] boards = new PrizeBoard[3];
     
@@ -55,14 +53,14 @@ public class GameManager : MonoBehaviour
             Application.Quit();
         }));
         
-        playButton.onClick.RemoveAllListeners();
-        playButton.onClick.AddListener(StartRound);
+        playButton.Button.onClick.RemoveAllListeners();
+        playButton.Button.onClick.AddListener(StartRound);
     }
     
     private void StartNewGame()
     {
         _currency = initialCurrency;
-        playButton.interactable = false;
+        playButton.SetInteractable(false, false);
         foreach (var board in boards)
         {
             board.ResetBoard();
@@ -71,18 +69,15 @@ public class GameManager : MonoBehaviour
         OnNewGame?.Invoke(_currency);
         
         SetCurrentBoard(0);
-
     }
     
     private void SetCurrentBoard(int index)
     {
         if (_currentBoardIndex >= boards.Length - 1) return;
     
-        // start new sequence
         if (_animationSequence.isAlive) _animationSequence.Stop();
         _animationSequence = Sequence.Create();
         
-        // disable old board
         if (index != _currentBoardIndex)
         {
             var previousBoard = boards[_currentBoardIndex];
@@ -95,29 +90,26 @@ public class GameManager : MonoBehaviour
                 });
         }
     
-        // update to new board
         _currentBoardIndex = index;
         OnBoardChanged?.Invoke(_currentBoardIndex);
         var board = boards[_currentBoardIndex];
         board.gameObject.SetActive(true);
 
-        // animate new board in
         if (!Mathf.Approximately(boardFrame.anchorMin.x, board.BoardSize) || !Mathf.Approximately(boardFrame.anchorMax.x, 1 - board.BoardSize))
         {
             _animationSequence
                 .Group(Tween.UIOffsetMin(boardFrame, new Vector2(board.BoardSize, boardFrame.offsetMin.y), frameAnimationDuration, frameAnimationEase))
                 .Group(Tween.UIOffsetMax(boardFrame, new Vector2(-board.BoardSize, boardFrame.offsetMax.y), frameAnimationDuration, frameAnimationEase));
         }
+        
         _animationSequence
             .Chain(board.AnimateReveal())
-            .Chain(Tween.Custom(this, 0f, 1f, 0.01f, static (_, _) => { })
-                .OnComplete(this, static self => self.playCostText.text = $"{self.boards[self._currentBoardIndex].PlayCost}"))
             .OnComplete(() =>
             {
                 if (boards.Length > _currentBoardIndex)
                 {
-                    playCostText.text = $"{boards[_currentBoardIndex].PlayCost}";
-                    playButton.interactable = true;
+                    playButton.SetCostText(boards[_currentBoardIndex].PlayCost);
+                    playButton.SetInteractable(true, true);
                 }
             });
     }
@@ -126,7 +118,7 @@ public class GameManager : MonoBehaviour
     {
         _currency -= boards[_currentBoardIndex].PlayCost;
         OnCurrencyChanged?.Invoke(_currency);
-        playButton.interactable = false;
+        playButton.SetInteractable(false, true);
 
         var board = boards[_currentBoardIndex];
         _animationSequence = Sequence.Create()

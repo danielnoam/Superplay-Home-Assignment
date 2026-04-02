@@ -18,7 +18,7 @@ public class PrizeBoard : MonoBehaviour
     [SerializeField] private Ease revealEase = Ease.Linear;
     [SerializeField] private float hideDuration = 0.5f;
     [SerializeField] private Ease hideEase = Ease.Linear;
-    [SerializeField] private float tileStaggerDelay = 0.1f;
+    [SerializeField] private float revelStaggerDelay = 0.1f;
     
     [Header("References")]
     [SerializeField] private CanvasGroup canvasGroup;
@@ -91,7 +91,7 @@ public class PrizeBoard : MonoBehaviour
 
         for (int i = 0; i < tiles.Length; i++)
         {
-            float delay = i * tileStaggerDelay;
+            float delay = i * revelStaggerDelay;
             sequence.Group(tiles[i].AnimateReveal(delay));
         }
 

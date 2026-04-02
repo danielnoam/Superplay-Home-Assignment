@@ -1,10 +1,14 @@
+using System;
 using DNExtensions.Utilities;
+using DNExtensions.Utilities.Button;
 using PrimeTween;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class Tile : MonoBehaviour
 {
+    public static event Action<CanvasGroup, RectTransform> OnWin;
+    
     [Header("Blink")]
     [SerializeField] private float blinkFadeDuration = 0.15f;
     [SerializeField] private float blinkPunchStrength = 0.1f;
@@ -25,7 +29,7 @@ public class Tile : MonoBehaviour
     [SerializeField] private Image overlayImage;
     [SerializeField] private Image vImage;
     [SerializeField] private Image shineImage;
-    [SerializeField] private GameObject prizeItem;
+    [SerializeField] private CanvasGroup prizeItem;
     [SerializeField] private RectTransform rectTransform;
 
     private bool _hadShine;
@@ -41,6 +45,12 @@ public class Tile : MonoBehaviour
         _initialized = true;
     }
 
+    [Button]
+    public void FakeWin()
+    {
+        OnWin?.Invoke(prizeItem, rectTransform);
+    }
+    
     public void ResetTile()
     {
         if (!_initialized)
@@ -49,7 +59,7 @@ public class Tile : MonoBehaviour
         }
         
         shineImage.gameObject.SetActive(_hadShine);
-        prizeItem.SetActive(true);
+        prizeItem.gameObject.SetActive(true);
         vImage.gameObject.SetActive(false);
         rectTransform.localScale = _startScale;
         overlayImage.color = overlayImage.color.SetAlpha(blinkAlpha);
@@ -63,8 +73,9 @@ public class Tile : MonoBehaviour
         var sequence = Sequence.Create()
             .ChainCallback(() =>
             {
+                OnWin?.Invoke(prizeItem, rectTransform);
                 shineImage.gameObject.SetActive(false);
-                prizeItem.SetActive(false);
+                prizeItem.gameObject.SetActive(false);
             })
             .Group(Tween.PunchScale(rectTransform, _startScale * winPunchStrength, winPunchDuration, 1))
             .Group(Tween.Alpha(overlayImage, 0, blinkFadeDuration))
@@ -72,6 +83,7 @@ public class Tile : MonoBehaviour
         
         return sequence;
     }
+    
     
     public Sequence Blink(float startDelay = 0)
     {

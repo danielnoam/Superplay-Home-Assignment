@@ -12,7 +12,7 @@ public struct BoardSlot
     public GameObject checkIcon;
 }
 
-public class ProgressBar : MonoBehaviour
+public class ProgressBarPanel : MonoBehaviour
 {
     [SerializeField] private float scaleDuration = 0.15f;
     [SerializeField] private Ease scaleEase = Ease.OutBack;

@@ -337,7 +337,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   blinkFadeDuration: 0.15
   blinkPunchStrength: 0.15
-  blinkPunchDuration: 0.2
+  blinkPunchDuration: 0.15
   blinkAlpha: 0.5
   revealDuration: 0.15
   revealEase: 27
@@ -348,7 +348,7 @@ MonoBehaviour:
   overlayImage: {fileID: 8959147377145099596}
   vImage: {fileID: 3267115729140810018}
   shineImage: {fileID: 4813904877024094686}
-  prizeItem: {fileID: 2072640638902485403}
+  prizeItem: {fileID: 6716174824324871887}
   rectTransform: {fileID: 5641868285965039125}
 --- !u!1001 &991284949888707955
 PrefabInstance:
@@ -452,8 +452,8 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 1225752909642001641, guid: f38b11004df9b774db212857c83ae898, type: 3}
   m_PrefabInstance: {fileID: 991284949888707955}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &2072640638902485403 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1225752909642001640, guid: f38b11004df9b774db212857c83ae898, type: 3}
+--- !u!225 &6716174824324871887 stripped
+CanvasGroup:
+  m_CorrespondingSourceObject: {fileID: 5833679959377353660, guid: f38b11004df9b774db212857c83ae898, type: 3}
   m_PrefabInstance: {fileID: 991284949888707955}
   m_PrefabAsset: {fileID: 0}
