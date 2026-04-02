@@ -7,6 +7,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 984712980635518008, guid: 5df8e6f456707e74c898ddfc8ca61525, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 749fa02843c3555489832d297aa9faf6, type: 3}
+    - target: {fileID: 984712982320816807, guid: 5df8e6f456707e74c898ddfc8ca61525, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1254560990973418229, guid: 5df8e6f456707e74c898ddfc8ca61525, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -118,6 +126,10 @@ PrefabInstance:
     - target: {fileID: 1254560991085277396, guid: 5df8e6f456707e74c898ddfc8ca61525, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2065139005066872089, guid: 5df8e6f456707e74c898ddfc8ca61525, type: 3}
+      propertyPath: m_text
+      value: X12
       objectReference: {fileID: 0}
     - target: {fileID: 3031086849933238388, guid: 5df8e6f456707e74c898ddfc8ca61525, type: 3}
       propertyPath: playCost

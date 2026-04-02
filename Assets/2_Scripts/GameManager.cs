@@ -28,8 +28,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private PrizeBoard[] boards = new PrizeBoard[3];
     
     
-    private Sequence _rollSequence;
-    private Sequence _frameChangeSequence;
+    private Sequence _animationSequence;
     private int _currentBoardIndex;
     private int _currency;
     
@@ -64,7 +63,6 @@ public class GameManager : MonoBehaviour
     {
         _currency = initialCurrency;
         playButton.interactable = false;
-        winScreen.gameObject.SetActive(false);
         foreach (var board in boards)
         {
             board.ResetBoard();
@@ -81,14 +79,14 @@ public class GameManager : MonoBehaviour
         if (_currentBoardIndex >= boards.Length - 1) return;
     
         // start new sequence
-        if (_frameChangeSequence.isAlive) _frameChangeSequence.Stop();
-        _frameChangeSequence = Sequence.Create();
+        if (_animationSequence.isAlive) _animationSequence.Stop();
+        _animationSequence = Sequence.Create();
         
         // disable old board
         if (index != _currentBoardIndex)
         {
             var previousBoard = boards[_currentBoardIndex];
-            _frameChangeSequence
+            _animationSequence
                 .Group(previousBoard.AnimateHide())
                 .ChainCallback(() =>
                 {
@@ -104,9 +102,13 @@ public class GameManager : MonoBehaviour
         board.gameObject.SetActive(true);
 
         // animate new board in
-        _frameChangeSequence
-            .Group(Tween.UIOffsetMin(boardFrame, new Vector2(board.BoardSize, boardFrame.offsetMin.y), frameAnimationDuration, frameAnimationEase))
-            .Group(Tween.UIOffsetMax(boardFrame, new Vector2(-board.BoardSize, boardFrame.offsetMax.y), frameAnimationDuration, frameAnimationEase))
+        if (!Mathf.Approximately(boardFrame.anchorMin.x, board.BoardSize) || !Mathf.Approximately(boardFrame.anchorMax.x, 1 - board.BoardSize))
+        {
+            _animationSequence
+                .Group(Tween.UIOffsetMin(boardFrame, new Vector2(board.BoardSize, boardFrame.offsetMin.y), frameAnimationDuration, frameAnimationEase))
+                .Group(Tween.UIOffsetMax(boardFrame, new Vector2(-board.BoardSize, boardFrame.offsetMax.y), frameAnimationDuration, frameAnimationEase));
+        }
+        _animationSequence
             .Chain(board.AnimateReveal())
             .Chain(Tween.Custom(this, 0f, 1f, 0.01f, static (_, _) => { })
                 .OnComplete(this, static self => self.playCostText.text = $"{self.boards[self._currentBoardIndex].PlayCost}"))
@@ -126,9 +128,11 @@ public class GameManager : MonoBehaviour
         OnCurrencyChanged?.Invoke(_currency);
         playButton.interactable = false;
 
-        winScreen.gameObject.SetActive(true);
-        _rollSequence = Sequence.Create()
-            .Group(winScreen.Show())
+        var board = boards[_currentBoardIndex];
+        _animationSequence = Sequence.Create()
+            .Chain(board.AnimateWin())
+            .ChainDelay(1f)
+            .Chain(winScreen.Show())
             .ChainCallback(() => SetCurrentBoard(_currentBoardIndex + 1));
     }
 }

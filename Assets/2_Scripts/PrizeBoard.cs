@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using DNExtensions.Utilities;
 using DNExtensions.Utilities.Button;
 using PrimeTween;
@@ -24,9 +25,7 @@ public class PrizeBoard : MonoBehaviour
     [SerializeField] private Image text;
     [SerializeField] private Tile winingTile;
     [SerializeField] private Tile[] tiles = Array.Empty<Tile>();
-
-
-    private Sequence _revealSequence;
+    
     
     public int PlayCost => playCost;
     public float BoardSize => boardSize;
@@ -44,38 +43,59 @@ public class PrizeBoard : MonoBehaviour
         
         foreach (var tile in tiles)
         {
-            tile.SetOverlay(false);
+            tile.ResetTile();
         }
+    }
+
+    public Sequence AnimateWin()
+    {
+        var candidates = new List<Tile>(tiles);
+        candidates.Remove(winingTile);
+        for (int i = candidates.Count - 1; i > 0; i--)
+        {
+            int j = UnityEngine.Random.Range(0, i + 1);
+            (candidates[i], candidates[j]) = (candidates[j], candidates[i]);
+        }
+
+        var sequence = Sequence.Create();
+    
+        int count = Mathf.Min(randomTileCount, candidates.Count);
+        for (int i = 0; i < count; i++)
+        {
+            sequence.Chain(candidates[i].Blink());
+        }
+        
+        sequence
+            .ChainDelay(0.5f)
+            .Chain(winingTile.Win());
+
+        return sequence;
     }
 
     public Sequence AnimateHide()
     {
-        if (_revealSequence.isAlive) _revealSequence.Stop();
-
-        _revealSequence = Sequence.Create()
+        var sequence = Sequence.Create()
             .Group(Tween.Alpha(canvasGroup, 0, hideDuration, hideEase))
             .Group(Tween.Alpha(text, 0, hideDuration / 3, hideEase));
         
-        return _revealSequence;
+        return sequence;
     }
     
     public Sequence AnimateReveal()
     {
         text.gameObject.SetActive(true);
         
-        if (_revealSequence.isAlive) _revealSequence.Stop();
-        
-        _revealSequence = Sequence.Create()
+        var sequence = Sequence.Create()
             .Group(Tween.Alpha(canvasGroup, 1f, revealDuration, revealEase))
             .Group(Tween.Alpha(text, 1f, revealDuration / 3, revealEase));
 
         for (int i = 0; i < tiles.Length; i++)
         {
             float delay = i * tileStaggerDelay;
-            _revealSequence.Group(tiles[i].ScaleUp(delay));
+            sequence.Group(tiles[i].AnimateReveal(delay));
         }
 
-        return _revealSequence;
+        return sequence;
     }
     
     [Button]

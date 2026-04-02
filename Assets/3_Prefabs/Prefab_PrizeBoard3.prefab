@@ -862,7 +862,7 @@ PrefabInstance:
     - target: {fileID: 984712981144910918, guid: 5df8e6f456707e74c898ddfc8ca61525, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: b644cd02a87c54c4882edccc1bd1a3d2, type: 3}
+      objectReference: {fileID: 21300000, guid: 6ccf07bde68372848abc2621ffbab56a, type: 3}
     - target: {fileID: 984712981160416021, guid: 5df8e6f456707e74c898ddfc8ca61525, type: 3}
       propertyPath: m_IsActive
       value: 1
@@ -873,7 +873,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 984712981605915353, guid: 5df8e6f456707e74c898ddfc8ca61525, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 984712981621634442, guid: 5df8e6f456707e74c898ddfc8ca61525, type: 3}
       propertyPath: m_Sprite
@@ -929,7 +929,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1254560991085277395, guid: 5df8e6f456707e74c898ddfc8ca61525, type: 3}
       propertyPath: m_Name
-      value: Prefab_BoardTiles3
+      value: Prefab_PrizeBoard3
       objectReference: {fileID: 0}
     - target: {fileID: 1254560991085277396, guid: 5df8e6f456707e74c898ddfc8ca61525, type: 3}
       propertyPath: m_Pivot.x
@@ -1057,7 +1057,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2065139005564140903, guid: 5df8e6f456707e74c898ddfc8ca61525, type: 3}
       propertyPath: m_text
-      value: X12
+      value: X6
       objectReference: {fileID: 0}
     - target: {fileID: 2065139005944616802, guid: 5df8e6f456707e74c898ddfc8ca61525, type: 3}
       propertyPath: m_text
@@ -1086,6 +1086,10 @@ PrefabInstance:
     - target: {fileID: 3031086849933238388, guid: 5df8e6f456707e74c898ddfc8ca61525, type: 3}
       propertyPath: boardSize.x
       value: -150
+      objectReference: {fileID: 0}
+    - target: {fileID: 3031086849933238388, guid: 5df8e6f456707e74c898ddfc8ca61525, type: 3}
+      propertyPath: randomTileCount
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 3031086849933238388, guid: 5df8e6f456707e74c898ddfc8ca61525, type: 3}
       propertyPath: tiles.Array.size

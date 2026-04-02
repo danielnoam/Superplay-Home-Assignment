@@ -449,7 +449,7 @@ PrefabInstance:
       objectReference: {fileID: 21300000, guid: 7d3b1ea75509c414c9170f0bf644377f, type: 3}
     - target: {fileID: 984712981160416021, guid: 5df8e6f456707e74c898ddfc8ca61525, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 984712981449535708, guid: 5df8e6f456707e74c898ddfc8ca61525, type: 3}
       propertyPath: m_IsActive
@@ -458,7 +458,7 @@ PrefabInstance:
     - target: {fileID: 984712981621634442, guid: 5df8e6f456707e74c898ddfc8ca61525, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: b644cd02a87c54c4882edccc1bd1a3d2, type: 3}
+      objectReference: {fileID: 21300000, guid: 6ccf07bde68372848abc2621ffbab56a, type: 3}
     - target: {fileID: 984712981621634444, guid: 5df8e6f456707e74c898ddfc8ca61525, type: 3}
       propertyPath: m_LocalScale.x
       value: 1
@@ -619,6 +619,10 @@ PrefabInstance:
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 21300000, guid: c17787036779ad84499955343b253568, type: 3}
+    - target: {fileID: 2065139003910943915, guid: 5df8e6f456707e74c898ddfc8ca61525, type: 3}
+      propertyPath: m_text
+      value: X6
+      objectReference: {fileID: 0}
     - target: {fileID: 2065139005066872089, guid: 5df8e6f456707e74c898ddfc8ca61525, type: 3}
       propertyPath: m_text
       value: X12
@@ -658,6 +662,10 @@ PrefabInstance:
     - target: {fileID: 3031086849933238388, guid: 5df8e6f456707e74c898ddfc8ca61525, type: 3}
       propertyPath: boardSize.x
       value: -75
+      objectReference: {fileID: 0}
+    - target: {fileID: 3031086849933238388, guid: 5df8e6f456707e74c898ddfc8ca61525, type: 3}
+      propertyPath: randomTileCount
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 3031086849933238388, guid: 5df8e6f456707e74c898ddfc8ca61525, type: 3}
       propertyPath: tiles.Array.size

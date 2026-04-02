@@ -5,70 +5,92 @@ using UnityEngine.UI;
 
 public class Tile : MonoBehaviour
 {
-    [Header("Fade")]
-    [SerializeField] private float fadeDuration = 0.15f;
-    [SerializeField] private float visibleAlpha = 0.5f;
+    [Header("Blink")]
+    [SerializeField] private float blinkFadeDuration = 0.15f;
+    [SerializeField] private float blinkPunchStrength = 0.1f;
+    [SerializeField] private float blinkPunchDuration = 0.2f;
+    [SerializeField] private float blinkAlpha = 0.5f;
     
-    [Header("Scale")]
-    [SerializeField] private float scaleDuration = 0.15f;
-    [SerializeField] private Ease scaleEase = Ease.OutBack;
+    [Header("Reveal")]
+    [SerializeField] private float revealDuration = 0.15f;
+    [SerializeField] private Ease revealEase = Ease.OutBack;
     
-    [Header("Punch")]
-    [SerializeField] private float punchStrength = 0.1f;
-    [SerializeField] private float punchDuration = 0.2f;
+    [Header("Win")]
+    [SerializeField] private float winPunchDuration = 0.2f;
+    [SerializeField] private float winPunchStrength = 0.2f;
+    [SerializeField] private float winVRevealDuration = 0.5f;
+    [SerializeField] private Ease winVRevealEase = Ease.OutBack;
     
     [Header("References")]
     [SerializeField] private Image overlayImage;
+    [SerializeField] private Image vImage;
+    [SerializeField] private Image shineImage;
+    [SerializeField] private GameObject prizeItem;
     [SerializeField] private RectTransform rectTransform;
-    
-    private Tween _alphaTween;
-    private Tween _scaleTween;
+
+    private bool _hadShine;
+    private bool _initialized;
     private Vector3 _startScale;
-
-    private void Awake()
+    private Vector3 _vStartScale;
+    
+    private void Initialize()
     {
+        _hadShine = shineImage.gameObject.activeSelf;
         _startScale = rectTransform.localScale;
+         _vStartScale = vImage.transform.localScale;
+        _initialized = true;
     }
 
-    public void SetOverlay(bool visible)
+    public void ResetTile()
     {
-        if (!overlayImage) return;
+        if (!_initialized)
+        {
+            Initialize();
+        }
         
-        if (_alphaTween.isAlive) _alphaTween.Stop();
-        
-        var targetAlpha = visible ? visibleAlpha : 0f;
-        overlayImage.color = overlayImage.color.SetAlpha(targetAlpha);
+        shineImage.gameObject.SetActive(_hadShine);
+        prizeItem.SetActive(true);
+        vImage.gameObject.SetActive(false);
+        rectTransform.localScale = _startScale;
+        overlayImage.color = overlayImage.color.SetAlpha(blinkAlpha);
     }
     
-    public Tween SetOverlayAnimated(bool visible)
+    public Sequence Win()
     {
-        if (!overlayImage) return new Tween();
+        vImage.transform.localScale = Vector3.zero;
+        vImage.gameObject.SetActive(true);
         
-        if (_alphaTween.isAlive) _alphaTween.Stop();
+        var sequence = Sequence.Create()
+            .ChainCallback(() =>
+            {
+                shineImage.gameObject.SetActive(false);
+                prizeItem.SetActive(false);
+            })
+            .Group(Tween.PunchScale(rectTransform, _startScale * winPunchStrength, winPunchDuration, 1))
+            .Group(Tween.Alpha(overlayImage, 0, blinkFadeDuration))
+            .Chain(Tween.Scale(vImage.transform, _vStartScale, winVRevealDuration, winVRevealEase)) ;
         
-        var targetAlpha = visible ? visibleAlpha : 0f;
-        _alphaTween = Tween.Alpha(overlayImage, targetAlpha, fadeDuration);
-        return _alphaTween;
+        return sequence;
     }
     
-    public Tween ScaleUp(float startDelay = 0)
+    public Sequence Blink(float startDelay = 0)
     {
-        if  (!overlayImage) return new Tween();
+        var sequence = Sequence.Create()
+            .ChainDelay(startDelay)
+            .Group(Tween.PunchScale(rectTransform, _startScale * blinkPunchStrength, blinkPunchDuration, 1))
+            .Group(Tween.Alpha(overlayImage, 0, blinkFadeDuration/2))
+            .Chain(Tween.Alpha(overlayImage, blinkAlpha, blinkFadeDuration/2));
         
-        if (_scaleTween.isAlive) _scaleTween.Stop();
+        return sequence;
+    }
+
+    public Sequence AnimateReveal(float startDelay = 0)
+    {
         rectTransform.localScale = Vector3.zero;
         
-        _scaleTween = Tween.Scale(rectTransform, _startScale, scaleDuration, scaleEase, startDelay: startDelay);
-        return _scaleTween;
-    }
-
-    public Tween PunchScale()
-    {
-        if (!overlayImage) return new Tween();
-        
-        if (_scaleTween.isAlive) _scaleTween.Stop();
-        
-        _scaleTween = Tween.PunchScale(rectTransform, _startScale * punchStrength, punchDuration, 1);
-        return _scaleTween;
+        var sequence = Sequence.Create()
+            .ChainDelay(startDelay)
+            .Group(Tween.Scale(rectTransform, _startScale, revealDuration, revealEase));
+        return sequence;
     }
 }
