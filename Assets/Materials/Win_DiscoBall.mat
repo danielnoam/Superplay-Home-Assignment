@@ -40,5 +40,5 @@ Material:
     m_Colors:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 2, g: 1.6, b: 0.40784314, a: 1}
-    - _ScrollSpeed: {r: 0.02, g: 0, b: 0, a: 0}
+    - _ScrollSpeed: {r: 0.05, g: 0, b: 0, a: 0}
   m_BuildTextureStacks: []
