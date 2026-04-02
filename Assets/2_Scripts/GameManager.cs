@@ -102,7 +102,9 @@ public class GameManager : MonoBehaviour
         OnCurrencyChanged?.Invoke(_currency);
         playButton.interactable = false;
 
-        winScreen.gameObject.SetActive(true);
-        winScreen.Show(() => SetCurrentBoard(_currentBoardIndex + 1));
+        _rollSequence = Sequence.Create()
+            .ChainCallback(() => winScreen.gameObject.SetActive(true))
+            .Group(winScreen.Show())
+            .ChainCallback(() => SetCurrentBoard(_currentBoardIndex + 1));
     }
 }

@@ -42,7 +42,7 @@ public class WinScreen : MonoBehaviour
         glowImage.color = new Color(1f, 1f, 1f, (Mathf.Sin(Time.time * glowFrequency * Mathf.PI * 2f) + 1f) * 0.5f);
     }
 
-    public void Show(Action onComplete = null)
+    public Sequence Show()
     {
         if (_sequence.isAlive) _sequence.Stop();
         
@@ -54,7 +54,7 @@ public class WinScreen : MonoBehaviour
             .ChainDelay(holdDuration)
             .Chain(Tween.Scale(iconTransform, Vector3.zero, iconDuration, iconEaseOut))
             .Group(Tween.Alpha(canvasGroup, 0f, fadeDuration, startDelay: 0.2f));
-
-        if (onComplete != null) _sequence.OnComplete(onComplete);
+        
+        return _sequence;
     }
 }
