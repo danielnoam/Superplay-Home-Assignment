@@ -281,7 +281,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -980,9 +980,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b86f4b0e8b3644b7b61febccb12d8591, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  countDuration: 0.25
-  punchStrength: 0.1
-  punchDuration: 0.2
+  countDuration: 0.4
+  punchStrength: 0.15
+  punchDuration: 0.25
   panelTransform: {fileID: 246134084}
   currencyText: {fileID: 766797452}
 --- !u!1 &332895020
@@ -1081,7 +1081,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -293, y: -12.000061}
+  m_AnchoredPosition: {x: -293, y: -12}
   m_SizeDelta: {x: 400, y: -394}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &343313858
@@ -1751,7 +1751,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &662519644
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3295,7 +3295,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -3703,8 +3703,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: db8ba95f6256473995c9a58c37b82577, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  punchStrength: 0.1
-  punchDuration: 0.2
+  punchStrength: 0.15
+  punchDuration: 0.3
   clockIcon: {fileID: 897638687}
   clockText: {fileID: 1128476022}
 --- !u!1 &1093038474
@@ -4959,8 +4959,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ccf60a0d9bdabf74aa20e274983aae86, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  initialCurrency: 3000
   frameAnimationDuration: 0.25
   frameAnimationEase: 27
+  exitButton: {fileID: 2032904339}
   boardFrame: {fileID: 1553800830}
   playButton: {fileID: 1589692512}
   playCostText: {fileID: 1370896444}
@@ -5915,6 +5917,17 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 5733343958690724517, guid: 42c7347cd4d6afb48901075c8300fb86, type: 3}
   m_PrefabInstance: {fileID: 2032904337}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &2032904339 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5733343958690724516, guid: 42c7347cd4d6afb48901075c8300fb86, type: 3}
+  m_PrefabInstance: {fileID: 2032904337}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2074869169
 GameObject:
   m_ObjectHideFlags: 0

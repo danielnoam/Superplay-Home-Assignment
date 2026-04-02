@@ -15,7 +15,9 @@ public class PrizeBoard : MonoBehaviour
     [Header("Animation")]
     [SerializeField] private float revealDuration = 1f;
     [SerializeField] private Ease revealEase = Ease.Linear;
-    [SerializeField] private float staggerDelay = 0.1f;
+    [SerializeField] private float hideDuration = 0.5f;
+    [SerializeField] private Ease hideEase = Ease.Linear;
+    [SerializeField] private float tileStaggerDelay = 0.1f;
     
     [Header("References")]
     [SerializeField] private CanvasGroup canvasGroup;
@@ -24,11 +26,15 @@ public class PrizeBoard : MonoBehaviour
     [SerializeField] private Tile[] tiles = Array.Empty<Tile>();
 
 
+    private Sequence _revealSequence;
+    
     public int PlayCost => playCost;
     public float BoardSize => boardSize;
     public Tile WiningTile => winingTile;
     public Tile[] Tiles => tiles;
     public CanvasGroup CanvasGroup => canvasGroup;
+    
+    
     
     public void ResetBoard()
     {
@@ -41,22 +47,35 @@ public class PrizeBoard : MonoBehaviour
             tile.SetOverlay(false);
         }
     }
+
+    public Sequence AnimateHide()
+    {
+        if (_revealSequence.isAlive) _revealSequence.Stop();
+
+        _revealSequence = Sequence.Create()
+            .Group(Tween.Alpha(canvasGroup, 0, hideDuration, hideEase))
+            .Group(Tween.Alpha(text, 0, hideDuration / 3, hideEase));
+        
+        return _revealSequence;
+    }
     
     public Sequence AnimateReveal()
     {
         text.gameObject.SetActive(true);
         
-        var seq = Sequence.Create()
+        if (_revealSequence.isAlive) _revealSequence.Stop();
+        
+        _revealSequence = Sequence.Create()
             .Group(Tween.Alpha(canvasGroup, 1f, revealDuration, revealEase))
             .Group(Tween.Alpha(text, 1f, revealDuration / 3, revealEase));
 
         for (int i = 0; i < tiles.Length; i++)
         {
-            float delay = i * staggerDelay;
-            seq.Group(tiles[i].ScaleUp(delay));
+            float delay = i * tileStaggerDelay;
+            _revealSequence.Group(tiles[i].ScaleUp(delay));
         }
 
-        return seq;
+        return _revealSequence;
     }
     
     [Button]
