@@ -1,3 +1,4 @@
+using DNExtensions.Systems.Scriptables;
 using PrimeTween;
 using UnityEngine;
 
@@ -12,6 +13,8 @@ public class WinScreen : MonoBehaviour
 
     [Header("References")]
     [SerializeField] private ParticleSystem glitterParticle;
+    [SerializeField] private SOAudioEvent showSfx;
+    [SerializeField] private AudioSource audioSource;
     [SerializeField] private CanvasGroup canvasGroup;
     [SerializeField] private RectTransform iconTransform;
     
@@ -34,6 +37,7 @@ public class WinScreen : MonoBehaviour
             .ChainCallback(() =>
             {
                 glitterParticle.Play();
+                showSfx?.Play(audioSource);
             })
             .Group(Tween.Alpha(canvasGroup, 1, fadeDuration))
             .Group(Tween.Scale(iconTransform, _iconStartScale, iconDuration, iconEaseIn, startDelay: 0.2f))

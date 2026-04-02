@@ -12,14 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f091914f821aeddd7b3676db7383e3d7, type: 3}
   m_Name: Tile_Blink
   m_EditorClassIdentifier: 
-  clips: []
+  clips:
+  - {fileID: 8300000, guid: 19f89c6e740e7447f9e12a8310d3e973, type: 3}
   mixerGroup: {fileID: 0}
   volume:
     minValue: 1
     maxValue: 1
   pitch:
-    minValue: -1
-    maxValue: 1
+    minValue: 0.9
+    maxValue: 1.1
   stereoPan: 0
   spatialBlend: 0
   reverbZoneMix: 1
