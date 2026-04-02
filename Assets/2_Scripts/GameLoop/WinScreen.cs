@@ -11,6 +11,7 @@ public class WinScreen : MonoBehaviour
     [SerializeField] private Ease iconEaseOut = Ease.InBack;
 
     [Header("References")]
+    [SerializeField] private ParticleSystem glitterParticle;
     [SerializeField] private CanvasGroup canvasGroup;
     [SerializeField] private RectTransform iconTransform;
     
@@ -30,11 +31,19 @@ public class WinScreen : MonoBehaviour
         if (_sequence.isAlive) _sequence.Stop();
 
         _sequence = Sequence.Create()
+            .ChainCallback(() =>
+            {
+                glitterParticle.Play();
+            })
             .Group(Tween.Alpha(canvasGroup, 1, fadeDuration))
             .Group(Tween.Scale(iconTransform, _iconStartScale, iconDuration, iconEaseIn, startDelay: 0.2f))
             .ChainDelay(holdDuration)
             .Chain(Tween.Scale(iconTransform, Vector3.zero, iconDuration, iconEaseOut))
-            .Group(Tween.Alpha(canvasGroup, 0f, fadeDuration, startDelay: 0.2f));
+            .Group(Tween.Alpha(canvasGroup, 0f, fadeDuration, startDelay: 0.2f))
+            .OnComplete(() =>
+            {
+                glitterParticle.Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
+            });
         
         return _sequence;
     }

@@ -163,6 +163,8 @@ GameObject:
   - component: {fileID: 6120396473924741670}
   - component: {fileID: 7896547968240315228}
   - component: {fileID: 4813904877024094686}
+  - component: {fileID: 5029458271330698752}
+  - component: {fileID: 799893157463540390}
   m_Layer: 5
   m_Name: Shine
   m_TagString: Untagged
@@ -228,6 +230,36 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &5029458271330698752
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4158103540893924376}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1ee6800d11834c5b9c1fbe99d7283019, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  target: {fileID: 6120396473924741670}
+  speed: 6
+--- !u!114 &799893157463540390
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4158103540893924376}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7e7d077919584e70aec53ae0c8acb752, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  target: {fileID: 4813904877024094686}
+  frequency: 0.3
+  minAlpha: 0.6
+  maxAlpha: 1
 --- !u!1 &5641868285965039124
 GameObject:
   m_ObjectHideFlags: 0

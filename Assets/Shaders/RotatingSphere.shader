@@ -1,4 +1,4 @@
-Shader "UI/DiscoBall"
+Shader "UI/RotatingSphere"
 {
     Properties
     {
@@ -10,7 +10,7 @@ Shader "UI/DiscoBall"
         _CircleRadius ("Circle Radius", Range(0, 0.5)) = 0.45
         _SphereStrength ("Sphere Strength", Range(0.01, 1.5)) = 0.8
 
-        [Header(Emission Outline)]
+        [Header(Outline)]
         [HDR] _EmissionColor ("Emission Color", Color) = (1, 0.8, 0.2, 1)
         _EmissionWidth ("Emission Width", Range(0, 0.15)) = 0.05
         _CircleSoftness ("Edge Softness", Range(0, 0.1)) = 0.01
@@ -102,8 +102,7 @@ Shader "UI/DiscoBall"
             {
                 float2 center = input.rawUV - 0.5;
                 float dist = length(center);
-
-                // Spherical UV distortion - stronger at edges
+                
                 float2 sphereUV = input.uv;
                 float r = saturate(dist / _CircleRadius);
                 if (r < 1.0)
@@ -114,14 +113,13 @@ Shader "UI/DiscoBall"
                     sphereUV = input.uv + dir * (mapped - r) * _CircleRadius;
                 }
 
-float halfSoft = _CircleSoftness * 0.5;
-float innerEdge = _CircleRadius - _EmissionWidth + halfSoft;
-float outerEdge = _CircleRadius - halfSoft;
+                float halfSoft = _CircleSoftness * 0.5;
+                float innerEdge = _CircleRadius - _EmissionWidth + halfSoft;
+                float outerEdge = _CircleRadius - halfSoft;
 
-float textureMask = 1.0 - smoothstep(innerEdge - _CircleSoftness, innerEdge, dist);
-float circleMask = 1.0 - smoothstep(outerEdge, outerEdge + _CircleSoftness, dist);
-float emissionMask = smoothstep(innerEdge - _CircleSoftness, innerEdge, dist)
-                   * (1.0 - smoothstep(outerEdge, outerEdge + _CircleSoftness, dist));
+                float textureMask = 1.0 - smoothstep(innerEdge - _CircleSoftness, innerEdge, dist);
+                float circleMask = 1.0 - smoothstep(outerEdge, outerEdge + _CircleSoftness, dist);
+                float emissionMask = smoothstep(innerEdge - _CircleSoftness, innerEdge, dist)* (1.0 - smoothstep(outerEdge, outerEdge + _CircleSoftness, dist));
 
                 half4 tex = SAMPLE_TEXTURE2D(_MainTex, sampler_MainTex, sphereUV) * input.color;
                 tex.rgb = tex.rgb * textureMask + _EmissionColor.rgb * emissionMask;

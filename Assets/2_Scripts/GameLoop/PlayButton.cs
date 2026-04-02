@@ -10,24 +10,19 @@ public class PlayButton : MonoBehaviour
     [SerializeField] private Ease hideEase = Ease.InBack;
     [SerializeField] private Ease showEase = Ease.OutBack;
     [SerializeField] private TextMeshProUGUI costText;
+    [SerializeField] private  Button button;
 
-    private Button _button;
     private Tween _tween;
-
-    public Button Button => _button;
-
-    private void Awake()
-    {
-        _button = GetComponent<Button>();
-    }
+    public Button Button => button;
+    
 
     public void SetInteractable(bool interactable, bool animated)
     {
-        if (_button.interactable == interactable) return;
+        if (button.interactable == interactable) return;
         
         if (_tween.isAlive) _tween.Stop();
 
-        _button.interactable = interactable;
+        button.interactable = interactable;
 
         if (animated)
         {
