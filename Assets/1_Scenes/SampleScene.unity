@@ -2344,7 +2344,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Material: {fileID: 2100000, guid: 7d37a88a2b26e84418040ae04afa493e, type: 2}
+  m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
@@ -2352,7 +2352,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: 7ba9d687c26e6264580fa3ad090ecc71, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -7042,6 +7042,38 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 337967650}
     m_Modifications:
+    - target: {fileID: 7795417570810685760, guid: 3d447976c313ef444a84cfbfb7aa96f9, type: 3}
+      propertyPath: InitialModule.startSize.minScalar
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7795417570810685760, guid: 3d447976c313ef444a84cfbfb7aa96f9, type: 3}
+      propertyPath: InitialModule.startColor.maxColor.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7795417570810685760, guid: 3d447976c313ef444a84cfbfb7aa96f9, type: 3}
+      propertyPath: InitialModule.startColor.maxColor.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7795417570810685760, guid: 3d447976c313ef444a84cfbfb7aa96f9, type: 3}
+      propertyPath: InitialModule.startColor.maxColor.r
+      value: 0.9868549
+      objectReference: {fileID: 0}
+    - target: {fileID: 7795417570810685760, guid: 3d447976c313ef444a84cfbfb7aa96f9, type: 3}
+      propertyPath: InitialModule.startColor.minColor.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7795417570810685760, guid: 3d447976c313ef444a84cfbfb7aa96f9, type: 3}
+      propertyPath: InitialModule.startColor.minColor.g
+      value: 0.7294916
+      objectReference: {fileID: 0}
+    - target: {fileID: 7795417570810685760, guid: 3d447976c313ef444a84cfbfb7aa96f9, type: 3}
+      propertyPath: InitialModule.startColor.minColor.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7795417570810685760, guid: 3d447976c313ef444a84cfbfb7aa96f9, type: 3}
+      propertyPath: InitialModule.startColor.minMaxState
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 7795417570810685766, guid: 3d447976c313ef444a84cfbfb7aa96f9, type: 3}
       propertyPath: m_RootOrder
       value: 0
