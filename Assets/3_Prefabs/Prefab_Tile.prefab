@@ -261,6 +261,7 @@ MonoBehaviour:
   fadeDuration: 0.15
   visibleAlpha: 0.5
   overlayImage: {fileID: 8959147377145099596}
+  rectTransform: {fileID: 5641868285965039125}
 --- !u!1001 &991284949888707955
 PrefabInstance:
   m_ObjectHideFlags: 0

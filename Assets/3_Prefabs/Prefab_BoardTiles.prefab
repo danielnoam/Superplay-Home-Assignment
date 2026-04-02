@@ -61,7 +61,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playCost: 1000
-  boardSize: {x: 0, y: 0}
+  boardSize: 0
+  revealDuration: 1
+  staggerDelay: 0.1
   canvasGroup: {fileID: 8305416090962222921}
   winingTile: {fileID: 0}
   tiles: []
