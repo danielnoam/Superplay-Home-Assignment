@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 1254560991085277397}
   - component: {fileID: 8305416090962222921}
   m_Layer: 5
-  m_Name: Prefab_BoardTiles
+  m_Name: Prefab_PrizeBoard
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

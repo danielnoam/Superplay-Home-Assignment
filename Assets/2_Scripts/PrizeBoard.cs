@@ -9,6 +9,7 @@ public class PrizeBoard : MonoBehaviour
 {
     [Header("Settings")]
     [SerializeField] private int playCost = 1000;
+    [SerializeField] private int randomTileCount = 4;
     [SerializeField] private float boardSize;
     
     [Header("Animation")]
@@ -32,6 +33,7 @@ public class PrizeBoard : MonoBehaviour
     public void ResetBoard()
     {
         canvasGroup.alpha = 0f;
+        text.gameObject.SetActive(false);
         text.color = text.color.SetAlpha(0f);
         
         foreach (var tile in tiles)
@@ -42,6 +44,8 @@ public class PrizeBoard : MonoBehaviour
     
     public Sequence AnimateReveal()
     {
+        text.gameObject.SetActive(true);
+        
         var seq = Sequence.Create()
             .Group(Tween.Alpha(canvasGroup, 1f, revealDuration, revealEase))
             .Group(Tween.Alpha(text, 1f, revealDuration / 3, revealEase));

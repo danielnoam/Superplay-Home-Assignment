@@ -21,9 +21,11 @@ public class GameManager : MonoBehaviour
     [SerializeField] private RectTransform boardFrame;
     [SerializeField] private Button playButton;
     [SerializeField] private TextMeshProUGUI playCostText;
+    [SerializeField] private WinScreen winScreen;
     [SerializeField] private PrizeBoard[] boards = new PrizeBoard[3];
     
     
+    private Sequence _rollSequence;
     private Sequence _frameChangeSequence;
     private int _currentBoardIndex;
     private int _currency;
@@ -48,12 +50,17 @@ public class GameManager : MonoBehaviour
     private void StartNewGame()
     {
         _currency = 2000;
-        OnNewGame?.Invoke(_currency);
+        playButton.interactable = false;
+        winScreen.gameObject.SetActive(false);
         foreach (var board in boards)
         {
             board.ResetBoard();
         }
+        
+        OnNewGame?.Invoke(_currency);
+        
         SetCurrentBoard(0);
+
     }
     
     private void SetCurrentBoard(int index)
@@ -81,8 +88,11 @@ public class GameManager : MonoBehaviour
                 .OnComplete(this, static self => self.playCostText.text = $"{self.boards[self._currentBoardIndex].PlayCost}"))
             .OnComplete(() =>
             {
-                playCostText.text = $"{boards[_currentBoardIndex].PlayCost}";
-                playButton.interactable = true;
+                if (boards.Length > _currentBoardIndex)
+                {
+                    playCostText.text = $"{boards[_currentBoardIndex].PlayCost}";
+                    playButton.interactable = true;
+                }
             });
     }
     
@@ -91,7 +101,8 @@ public class GameManager : MonoBehaviour
         _currency -= boards[_currentBoardIndex].PlayCost;
         OnCurrencyChanged?.Invoke(_currency);
         playButton.interactable = false;
-        // TODO: animate win
-        SetCurrentBoard(_currentBoardIndex + 1);
+
+        winScreen.gameObject.SetActive(true);
+        winScreen.Show(() => SetCurrentBoard(_currentBoardIndex + 1));
     }
 }

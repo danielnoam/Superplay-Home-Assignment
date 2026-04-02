@@ -1,4 +1,3 @@
-using System;
 using DNExtensions.Utilities;
 using PrimeTween;
 using UnityEngine;
@@ -12,8 +11,11 @@ public class Tile : MonoBehaviour
     
     [Header("Scale")]
     [SerializeField] private float scaleDuration = 0.15f;
-
     [SerializeField] private Ease scaleEase = Ease.OutBack;
+    
+    [Header("Punch")]
+    [SerializeField] private float punchStrength = 0.1f;
+    [SerializeField] private float punchDuration = 0.2f;
     
     [Header("References")]
     [SerializeField] private Image overlayImage;
@@ -53,10 +55,20 @@ public class Tile : MonoBehaviour
     {
         if  (!overlayImage) return new Tween();
         
-        if (_alphaTween.isAlive) _alphaTween.Stop();
+        if (_scaleTween.isAlive) _scaleTween.Stop();
         rectTransform.localScale = Vector3.zero;
         
         _scaleTween = Tween.Scale(rectTransform, _startScale, scaleDuration, scaleEase, startDelay: startDelay);
+        return _scaleTween;
+    }
+
+    public Tween PunchScale()
+    {
+        if (!overlayImage) return new Tween();
+        
+        if (_scaleTween.isAlive) _scaleTween.Stop();
+        
+        _scaleTween = Tween.PunchScale(rectTransform, _startScale * punchStrength, punchDuration, 1);
         return _scaleTween;
     }
 }
