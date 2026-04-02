@@ -1,4 +1,5 @@
 using System;
+using DNExtensions.Systems.Scriptables;
 using DNExtensions.Utilities;
 using DNExtensions.Utilities.Button;
 using PrimeTween;
@@ -14,18 +15,22 @@ public class Tile : MonoBehaviour
     [SerializeField] private float blinkPunchStrength = 0.1f;
     [SerializeField] private float blinkPunchDuration = 0.2f;
     [SerializeField] private float blinkAlpha = 0.5f;
+    [SerializeField] private SOAudioEvent blinkSfx;
     
     [Header("Reveal")]
     [SerializeField] private float revealDuration = 0.15f;
     [SerializeField] private Ease revealEase = Ease.OutBack;
+    [SerializeField] private SOAudioEvent revealSfx;
     
     [Header("Win")]
     [SerializeField] private float winPunchDuration = 0.2f;
     [SerializeField] private float winPunchStrength = 0.2f;
     [SerializeField] private float winVRevealDuration = 0.5f;
     [SerializeField] private Ease winVRevealEase = Ease.OutBack;
+    [SerializeField] private SOAudioEvent winSfx;
     
     [Header("References")]
+    [SerializeField] private AudioSource audioSource;
     [SerializeField] private Image overlayImage;
     [SerializeField] private Image vImage;
     [SerializeField] private Image shineImage;
@@ -76,6 +81,7 @@ public class Tile : MonoBehaviour
                 OnWin?.Invoke(prizeItem, rectTransform);
                 shineImage.gameObject.SetActive(false);
                 prizeItem.gameObject.SetActive(false);
+                winSfx?.Play(audioSource);
             })
             .Group(Tween.PunchScale(rectTransform, _startScale * winPunchStrength, winPunchDuration, 1))
             .Group(Tween.Alpha(overlayImage, 0, blinkFadeDuration))
@@ -89,6 +95,7 @@ public class Tile : MonoBehaviour
     {
         var sequence = Sequence.Create()
             .ChainDelay(startDelay)
+            .ChainCallback(() => blinkSfx?.Play(audioSource))
             .Group(Tween.PunchScale(rectTransform, _startScale * blinkPunchStrength, blinkPunchDuration, 1))
             .Group(Tween.Alpha(overlayImage, 0, blinkFadeDuration/2))
             .Chain(Tween.Alpha(overlayImage, blinkAlpha, blinkFadeDuration/2));
@@ -102,6 +109,7 @@ public class Tile : MonoBehaviour
         
         var sequence = Sequence.Create()
             .ChainDelay(startDelay)
+            .ChainCallback(() => revealSfx?.Play(audioSource))
             .Group(Tween.Scale(rectTransform, _startScale, revealDuration, revealEase));
         return sequence;
     }
