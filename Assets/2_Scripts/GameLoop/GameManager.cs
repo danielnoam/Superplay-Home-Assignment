@@ -62,7 +62,7 @@ public class GameManager : MonoBehaviour
         if (_animationSequence.isAlive) _animationSequence.Stop();
         
         _currency = initialCurrency;
-        playButton.SetInteractable(false, false);
+        playButton.TurnOff(false);
         foreach (var prizeBoard in boards)
         {
             prizeBoard.ResetBoard();
@@ -106,7 +106,7 @@ public class GameManager : MonoBehaviour
                 if (boards.Length > _currentBoardIndex)
                 {
                     playButton.SetCostText(boards[_currentBoardIndex].PlayCost);
-                    playButton.SetInteractable(true, true);
+                    playButton.TurnOn();
                 }
             });
     }
@@ -115,7 +115,7 @@ public class GameManager : MonoBehaviour
     {
         _currency -= boards[_currentBoardIndex].PlayCost;
         OnCurrencyChanged?.Invoke(_currency);
-        playButton.SetInteractable(false, true);
+        playButton.TurnOff(true);
 
         var board = boards[_currentBoardIndex];
         _animationSequence = Sequence.Create()
