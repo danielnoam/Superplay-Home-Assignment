@@ -1,3 +1,4 @@
+using System;
 using PrimeTween;
 using TMPro;
 using UnityEngine;
@@ -8,15 +9,20 @@ public class CurrencyPanel : MonoBehaviour
     [SerializeField] private float countDuration = 0.25f;
     [SerializeField] private float punchStrength = 0.1f;
     [SerializeField] private float punchDuration = 0.2f;
-
+    
+    [Header("Icon")]
+    [SerializeField] private float noiseStrength = 15f;
+    [SerializeField] private float noiseFrequency = 4f;
+    
     [Header("References")]
     [SerializeField] private RectTransform panelTransform;
+    [SerializeField] private RectTransform currencyIcon;
     [SerializeField] private TextMeshProUGUI currencyText;
 
     private Tween _countTween;
     private Tween _punchTween;
     private float _displayedValue;
-
+    
     private void OnEnable()
     {
         GameManager.OnNewGame += HandleNewGame;
@@ -27,6 +33,12 @@ public class CurrencyPanel : MonoBehaviour
     {
         GameManager.OnNewGame -= HandleNewGame;
         GameManager.OnCurrencyChanged -= HandleCurrencyChanged;
+    }
+
+    private void Update()
+    {
+        var noise = Mathf.PerlinNoise(Time.time * noiseFrequency, 0f) - 0.5f;
+        currencyIcon.localRotation = Quaternion.Euler(0f, 0f, noise * noiseStrength);
     }
 
     private void HandleNewGame(float value)

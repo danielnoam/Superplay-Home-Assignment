@@ -101,6 +101,7 @@ SpriteAtlas:
     - {fileID: 2800000, guid: 6467631b7f05817428e0d966a613fc27, type: 3}
     - {fileID: 2800000, guid: e9e0576838ee0874190bb661653671ba, type: 3}
     - {fileID: 2800000, guid: 280eb25b4b407c548a9d08412a3f3494, type: 3}
+    - {fileID: 2800000, guid: 293c24425d25b3641970beeb2410f234, type: 3}
     bindAsDefault: 1
     isAtlasV2: 0
     cachedData: {fileID: 0}
@@ -110,6 +111,7 @@ SpriteAtlas:
   - {fileID: 21300000, guid: f2966f3017b27c444a45f7e98b776779, type: 3}
   - {fileID: 21300000, guid: 3bc023709fd2b654ea77f8c1da58caf0, type: 3}
   - {fileID: 21300000, guid: b644cd02a87c54c4882edccc1bd1a3d2, type: 3}
+  - {fileID: 21300000, guid: 293c24425d25b3641970beeb2410f234, type: 3}
   - {fileID: 21300000, guid: 590de16268276b7498e6644b0dfc2826, type: 3}
   - {fileID: 21300000, guid: fd3ce3620819d2146bca01611f1761dd, type: 3}
   - {fileID: 21300000, guid: 6fcdc2c24d59af3449e7a5bdb94208af, type: 3}
@@ -168,6 +170,7 @@ SpriteAtlas:
   - DG_WinScreen_Glitters
   - DG_ProgressBar_BlueOn
   - DG_Icon_V
+  - DG_Board_Tile_BlueCornerBottom
   - DG_Board2_Text
   - DG_Icon_Coins
   - DG_FinalPrize_InnerBG
