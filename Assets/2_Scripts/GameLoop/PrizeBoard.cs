@@ -84,15 +84,36 @@ public class PrizeBoard : MonoBehaviour
     public Sequence AnimateReveal()
     {
         text.gameObject.SetActive(true);
-        
+    
         var sequence = Sequence.Create()
             .Group(Tween.Alpha(canvasGroup, 1f, revealDuration, revealEase))
             .Group(Tween.Alpha(text, 1f, revealDuration / 3, revealEase));
 
-        for (int i = 0; i < tiles.Length; i++)
+        var shuffled = new List<Tile>(tiles);
+        for (int i = shuffled.Count - 1; i > 0; i--)
+        {
+            int j = UnityEngine.Random.Range(0, i + 1);
+            (shuffled[i], shuffled[j]) = (shuffled[j], shuffled[i]);
+        }
+
+        for (int i = 0; i < shuffled.Count; i++)
         {
             float delay = i * revelStaggerDelay;
-            sequence.Group(tiles[i].AnimateReveal(delay));
+            sequence.Group(shuffled[i].AnimateReveal(delay));
+        }
+        
+        for (int i = 0; i < shuffled.Count; i++)
+        {
+            float delay = i * revelStaggerDelay;
+            if (i == 0)
+            {
+                sequence.Chain(shuffled[i].Blink());
+            }
+            else
+            {
+                sequence.Group(shuffled[i].Blink(delay));
+            }
+
         }
 
         return sequence;

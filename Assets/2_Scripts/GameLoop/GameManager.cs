@@ -1,5 +1,4 @@
 using System;
-using PrimeTween;
 using UnityEngine;
 using UnityEngine.UI;
 using Sequence = PrimeTween.Sequence;
@@ -14,15 +13,11 @@ public class GameManager : MonoBehaviour
     [Header("Settings")]
     [SerializeField] private int initialCurrency = 3000;
     
-    [Header("Frame Change Animation")]
-    [SerializeField] private float frameAnimationDuration = 0.25f;
-    [SerializeField] private Ease frameAnimationEase = Ease.OutBack;
-    
     [Header("References")]
     [SerializeField] private Button exitButton;
-    [SerializeField] private RectTransform boardFrame;
     [SerializeField] private PlayButton playButton;
     [SerializeField] private WinScreen winScreen;
+    [SerializeField] private BoardFrame boardFrame;
     [SerializeField] private PrizeBoard[] boards = new PrizeBoard[3];
     
     
@@ -43,10 +38,7 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.F1))
-        {
-            StartNewGame();
-        }
+        if (Input.GetKeyDown(KeyCode.F1)) StartNewGame();
     }
     
     private void SetUp()
@@ -67,12 +59,15 @@ public class GameManager : MonoBehaviour
     
     private void StartNewGame()
     {
+        if (_animationSequence.isAlive) _animationSequence.Stop();
+        
         _currency = initialCurrency;
         playButton.SetInteractable(false, false);
-        foreach (var board in boards)
+        foreach (var prizeBoard in boards)
         {
-            board.ResetBoard();
+            prizeBoard.ResetBoard();
         }
+        boardFrame.ResetFrame();
         
         OnNewGame?.Invoke(_currency);
         
@@ -100,18 +95,12 @@ public class GameManager : MonoBehaviour
     
         _currentBoardIndex = index;
         OnBoardChanged?.Invoke(_currentBoardIndex);
-        var board = boards[_currentBoardIndex];
-        board.gameObject.SetActive(true);
-
-        if (!Mathf.Approximately(boardFrame.anchorMin.x, board.BoardSize) || !Mathf.Approximately(boardFrame.anchorMax.x, 1 - board.BoardSize))
-        {
-            _animationSequence
-                .Group(Tween.UIOffsetMin(boardFrame, new Vector2(board.BoardSize, boardFrame.offsetMin.y), frameAnimationDuration, frameAnimationEase))
-                .Group(Tween.UIOffsetMax(boardFrame, new Vector2(-board.BoardSize, boardFrame.offsetMax.y), frameAnimationDuration, frameAnimationEase));
-        }
+        var prizeBoard = boards[_currentBoardIndex];
+        prizeBoard.gameObject.SetActive(true);
         
         _animationSequence
-            .Chain(board.AnimateReveal())
+            .Group(boardFrame.AnimateToSize(prizeBoard.BoardSize))
+            .Chain(prizeBoard.AnimateReveal())
             .OnComplete(() =>
             {
                 if (boards.Length > _currentBoardIndex)

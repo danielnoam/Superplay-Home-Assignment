@@ -46,14 +46,8 @@ public class Tile : MonoBehaviour
     {
         _hadShine = shineImage.gameObject.activeSelf;
         _startScale = rectTransform.localScale;
-         _vStartScale = vImage.transform.localScale;
+        _vStartScale = vImage.transform.localScale;
         _initialized = true;
-    }
-
-    [Button]
-    public void FakeWin()
-    {
-        OnWin?.Invoke(prizeItem, rectTransform);
     }
     
     public void ResetTile()
@@ -65,7 +59,7 @@ public class Tile : MonoBehaviour
         
         shineImage.gameObject.SetActive(_hadShine);
         prizeItem.gameObject.SetActive(true);
-        vImage.gameObject.SetActive(false);
+        vImage.transform.localScale = Vector3.zero;
         rectTransform.localScale = _startScale;
         overlayImage.color = overlayImage.color.SetAlpha(blinkAlpha);
     }
@@ -73,7 +67,6 @@ public class Tile : MonoBehaviour
     public Sequence Win()
     {
         vImage.transform.localScale = Vector3.zero;
-        vImage.gameObject.SetActive(true);
         
         var sequence = Sequence.Create()
             .ChainCallback(() =>
@@ -90,11 +83,12 @@ public class Tile : MonoBehaviour
         return sequence;
     }
     
-    
     public Sequence Blink(float startDelay = 0)
     {
-        var sequence = Sequence.Create()
-            .ChainDelay(startDelay)
+        var sequence = Sequence.Create();
+        if (startDelay > 0) sequence.ChainDelay(startDelay);
+        
+        sequence
             .ChainCallback(() => blinkSfx?.Play(audioSource))
             .Group(Tween.PunchScale(rectTransform, _startScale * blinkPunchStrength, blinkPunchDuration, 1))
             .Group(Tween.Alpha(overlayImage, 0, blinkFadeDuration/2))
@@ -107,8 +101,10 @@ public class Tile : MonoBehaviour
     {
         rectTransform.localScale = Vector3.zero;
         
-        var sequence = Sequence.Create()
-            .ChainDelay(startDelay)
+        var sequence = Sequence.Create();
+        if (startDelay > 0) sequence.ChainDelay(startDelay);
+        
+        sequence
             .ChainCallback(() => revealSfx?.Play(audioSource))
             .Group(Tween.Scale(rectTransform, _startScale, revealDuration, revealEase));
         return sequence;

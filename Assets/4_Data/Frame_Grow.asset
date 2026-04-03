@@ -12,13 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f091914f821aeddd7b3676db7383e3d7, type: 3}
   m_Name: Frame_Grow
   m_EditorClassIdentifier: 
-  clips: []
+  clips:
+  - {fileID: 8300000, guid: 29bde6326b4c34ad8a12da475f79b50a, type: 3}
   mixerGroup: {fileID: 0}
   volume:
-    minValue: 1
-    maxValue: 1
+    minValue: 0.7
+    maxValue: 0.7
   pitch:
-    minValue: -1
+    minValue: 0.9
     maxValue: 1
   stereoPan: 0
   spatialBlend: 0
