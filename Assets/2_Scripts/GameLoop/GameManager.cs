@@ -40,6 +40,14 @@ public class GameManager : MonoBehaviour
     {
         StartNewGame();
     }
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.F1))
+        {
+            StartNewGame();
+        }
+    }
     
     private void SetUp()
     {
@@ -124,7 +132,8 @@ public class GameManager : MonoBehaviour
         _animationSequence = Sequence.Create()
             .Chain(board.AnimateWin())
             .ChainDelay(1f)
-            .Chain(winScreen.Show())
+            .ChainCallback(() => winScreen.PlayWinScreen())
+            .ChainDelay(winScreen.TimelineDuration)
             .ChainCallback(() => SetCurrentBoard(_currentBoardIndex + 1));
     }
 }

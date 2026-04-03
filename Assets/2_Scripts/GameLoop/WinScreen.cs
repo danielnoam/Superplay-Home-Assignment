@@ -1,17 +1,19 @@
 using DNExtensions.Systems.Scriptables;
 using PrimeTween;
 using UnityEngine;
+using UnityEngine.Playables;
 
 public class WinScreen : MonoBehaviour
 {
     [Header("Animation")]
-    [SerializeField] private float fadeDuration = 0.3f;
-    [SerializeField] private float iconDuration = 0.3f;
-    [SerializeField] private float holdDuration = 1f;
+    [SerializeField] private float fadeDuration = 1f;
+    [SerializeField] private float iconDuration = 0.5f;
+    [SerializeField] private float holdDuration = 2f;
     [SerializeField] private Ease iconEaseIn = Ease.OutBack;
     [SerializeField] private Ease iconEaseOut = Ease.InBack;
 
     [Header("References")]
+    [SerializeField] private PlayableDirector timeline;
     [SerializeField] private ParticleSystem glitterParticle;
     [SerializeField] private SOAudioEvent showSfx;
     [SerializeField] private AudioSource audioSource;
@@ -20,12 +22,19 @@ public class WinScreen : MonoBehaviour
     
     private Sequence _sequence;
     private Vector3 _iconStartScale;
+    
+    public float TimelineDuration => (float)timeline.duration;
 
     private void Awake()
     {
         _iconStartScale = iconTransform.localScale;
         iconTransform.localScale = Vector3.zero;
         canvasGroup.alpha = 0f;
+    }
+
+    public void PlayWinScreen()
+    {
+        timeline.Play();
     }
 
 
