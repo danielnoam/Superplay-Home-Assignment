@@ -668,6 +668,10 @@ PrefabInstance:
       value: -75
       objectReference: {fileID: 0}
     - target: {fileID: 3031086849933238388, guid: 5df8e6f456707e74c898ddfc8ca61525, type: 3}
+      propertyPath: revealDuration
+      value: 0.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 3031086849933238388, guid: 5df8e6f456707e74c898ddfc8ca61525, type: 3}
       propertyPath: tiles.Array.size
       value: 12
       objectReference: {fileID: 0}
@@ -937,6 +941,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6855298608489176208, guid: 5df8e6f456707e74c898ddfc8ca61525, type: 3}
       propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7623273478270233176, guid: 5df8e6f456707e74c898ddfc8ca61525, type: 3}
+      propertyPath: InitialModule.startColor.minColor.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7623273478270233176, guid: 5df8e6f456707e74c898ddfc8ca61525, type: 3}
+      propertyPath: InitialModule.startColor.minColor.g
+      value: 0.27220368
+      objectReference: {fileID: 0}
+    - target: {fileID: 7623273478270233176, guid: 5df8e6f456707e74c898ddfc8ca61525, type: 3}
+      propertyPath: InitialModule.startColor.minColor.r
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []

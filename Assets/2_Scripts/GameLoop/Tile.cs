@@ -28,6 +28,7 @@ public class Tile : MonoBehaviour
     [SerializeField] private float winVRevealDuration = 0.5f;
     [SerializeField] private Ease winVRevealEase = Ease.OutBack;
     [SerializeField] private SOAudioEvent winSfx;
+    [SerializeField] private ParticleSystem winParticles;
     
     [Header("References")]
     [SerializeField] private AudioSource audioSource;
@@ -75,6 +76,7 @@ public class Tile : MonoBehaviour
                 shineImage.gameObject.SetActive(false);
                 prizeItem.gameObject.SetActive(false);
                 winSfx?.Play(audioSource);
+                winParticles?.Play();
             })
             .Group(Tween.PunchScale(rectTransform, _startScale * winPunchStrength, winPunchDuration, 1))
             .Group(Tween.Alpha(overlayImage, 0, blinkFadeDuration))

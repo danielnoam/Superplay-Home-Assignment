@@ -373,10 +373,6 @@ PrefabInstance:
       propertyPath: text
       value: 
       objectReference: {fileID: 767390243}
-    - target: {fileID: 4493732163825481383, guid: 59dcf1c43cbafe64f9b1c8bf72a39424, type: 3}
-      propertyPath: revealDuration
-      value: 0.6
-      objectReference: {fileID: 0}
     - target: {fileID: 5435437059472561360, guid: 59dcf1c43cbafe64f9b1c8bf72a39424, type: 3}
       propertyPath: m_AnchorMax.y
       value: 1
@@ -3152,7 +3148,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &870998745
 RectTransform:
   m_ObjectHideFlags: 0
@@ -6811,6 +6807,10 @@ PrefabInstance:
     - target: {fileID: 370839318358615552, guid: b7f865816f3836b4f94d2edc50a06dfd, type: 3}
       propertyPath: m_Name
       value: Prefab_PrizeBoard1
+      objectReference: {fileID: 0}
+    - target: {fileID: 370839318358615552, guid: b7f865816f3836b4f94d2edc50a06dfd, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 370839318358615559, guid: b7f865816f3836b4f94d2edc50a06dfd, type: 3}
       propertyPath: m_Pivot.x
